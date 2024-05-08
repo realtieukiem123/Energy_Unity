@@ -10,49 +10,50 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-
+    public DFSPower dfsPower;
+    public CheckPower checkPower;
     public List<Hexa> listAllHexa = new List<Hexa>();
     public List<Hexa> listHexaPower = new List<Hexa>();
     //public List<Hexa> listCheck = new List<Hexa>();
 
     private void Start()
     {
-        Invoke("CheckHexa", 0.1f);
+        Invoke("OnLightToPower", 0.1f);
         //CheckHexa();
     }
-    public void CheckHexa()
+    public void OnLightToPower()
     {
         foreach (var e in listHexaPower)
         {
             if (e.isPower)
             {
-                DFS(e);
+                dfsPower.DFSs(e);
                 ResetValidate();
             }
         }
     }
 
-    public void DFS(Hexa hex)
-    {
-
-        var tempctrl = hex.GetComponent<Hexa>();
-        DoSomething(tempctrl);
-        foreach (var e in tempctrl.listConnect)
-        {
-            var ctr = e.GetComponent<Hexa>();
-            if (!ctr.isValidate)
-            {
-                DFS(ctr);
-            }
-        }
-    }
-    void DoSomething(Hexa h)
-    {
-        if (h.isValidate) return;
-        h.isValidate = true;
-        h.isLight = true;
-        h.CheckLight(h.isLight);
-    }
+    //public void DFS(Hexa hex)
+    //{
+    //    Debug.Log(hex.name);
+    //    var tempctrl = hex.GetComponent<Hexa>();
+    //    DoSomething(tempctrl);
+    //    foreach (var e in tempctrl.listConnect)
+    //    {
+    //        var ctr = e.GetComponent<Hexa>();
+    //        if (!ctr.isValidate)
+    //        {
+    //            DFS(ctr);
+    //        }
+    //    }
+    //}
+    //void DoSomething(Hexa h)
+    //{
+    //    if (h.isValidate) return;
+    //    h.isValidate = true;
+    //    h.isLight = true;
+    //    h.CheckLight(h.isLight);
+    //}
 
 
 

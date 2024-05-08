@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class CheckPower : DFS
 {
-    public static CheckPower instance;
-    private void Awake()
-    {
-        instance = this;
-    }
-
-
-
     public bool hasPower = false;
     public List<Hexa> listNext = new List<Hexa>();
 

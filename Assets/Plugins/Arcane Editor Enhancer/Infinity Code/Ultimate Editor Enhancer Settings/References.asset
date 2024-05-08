@@ -50,6 +50,69 @@ MonoBehaviour:
     - title: Import Custom Package
       menuPath: Assets/Import Package/Custom Package...
       enabled: 1
+    - title: Package Manager
+      menuPath: Window/Package Manager
+      enabled: 1
+  - title: Text
+    enabled: 1
+    items:
+    - title: Font Asset Creator
+      menuPath: Window/Text/Font Asset Creator
+      enabled: 1
+    - title: Sprite Importer
+      menuPath: Window/Text/Sprite Importer
+      enabled: 1
+  - title: TextMeshPro
+    enabled: 1
+    items:
+    - title: Font Asset Creator
+      menuPath: Window/TextMeshPro/Font Asset Creator
+      enabled: 1
+    - title: Sprite Importer
+      menuPath: Window/TextMeshPro/Sprite Importer
+      enabled: 1
+    - title: Import TMP Essential Resources
+      menuPath: Window/TextMeshPro/Import TMP Essential Resources
+      enabled: 1
+    - title: Import TMP Examples and Extras
+      menuPath: Window/TextMeshPro/Import TMP Examples and Extras
+      enabled: 1
+    - title: Project Files GUID Remapping Tool
+      menuPath: Window/TextMeshPro/Project Files GUID Remapping Tool
+      enabled: 1
+    - title: Project Text Spacing Conversion Tool
+      menuPath: Window/TextMeshPro/Project Text Spacing Conversion Tool
+      enabled: 1
+  - title: Asset Management
+    enabled: 1
+    items:
+    - title: Version Control
+      menuPath: Window/Asset Management/Version Control
+      enabled: 1
+  - title: UI Toolkit
+    enabled: 1
+    items:
+    - title: UI Builder
+      menuPath: Window/UI Toolkit/UI Builder
+      enabled: 1
+    - title: Samples
+      menuPath: Window/UI Toolkit/Samples
+      enabled: 1
+    - title: Debugger
+      menuPath: Window/UI Toolkit/Debugger
+      enabled: 1
+    - title: Event Debugger
+      menuPath: Window/UI Toolkit/Event Debugger
+      enabled: 1
+    - title: Package Asset Converter
+      menuPath: Window/UI Toolkit/Package Asset Converter
+      enabled: 1
+  - title: Visual Scripting
+    enabled: 1
+    items:
+    - title: Visual Scripting Graph
+      menuPath: Window/Visual Scripting/Visual Scripting Graph
+      enabled: 1
   _favoriteWindows: []
   _headerRules:
   - enabled: 1
@@ -227,15 +290,13 @@ MonoBehaviour:
     alignWindowToBar: 1
     windowMode: 0
   _sceneHistory:
+  - name: DFS
+    path: Assets/Scenes/DFS.unity
   - name: SampleScene
     path: Assets/Scenes/SampleScene.unity
-  - name: Menu
-    path: Assets/_Project/Scenes/Menu.unity
-  - name: Gameplay
-    path: Assets/_Project/Scenes/Gameplay.unity
-  - name: ToolDev
-    path: Assets/_Project/Scenes/ToolDev.unity
-  - name: DemoScene
-    path: Assets/Plugins/Shaders/Minions Art/Grass System (BIRP & URP)/Scenes/DemoScene.unity
-  - name: Space_Nebula_Red
-    path: Assets/Plugins/Allsky/Space/Space_Nebula_Red/Space_Nebula_Red.unity
+  - name: DOTweenAnimation_Basics
+    path: Assets/Plugins/Demigiant/DOTweenPro Examples/DOTweenAnimation_Basics.unity
+  - name: DOTweenAnimation_Advanced
+    path: Assets/Plugins/Demigiant/DOTweenPro Examples/DOTweenAnimation_Advanced.unity
+  - name: DOTweenPath
+    path: Assets/Plugins/Demigiant/DOTweenPro Examples/DOTweenPath.unity

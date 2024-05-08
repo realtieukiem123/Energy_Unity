@@ -67,7 +67,7 @@ public class Hexa : MonoBehaviour
                 angle += 360;
             }
 
-            transform.DORotate(new Vector3(0, 0, angle), 0.2f, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(DoneRoatate);
+            transform.DORotate(new Vector3(0, 0, angle), 0.2f, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(() => { StartCoroutine(DoneRoatate()); });
         }
 
 
@@ -77,24 +77,26 @@ public class Hexa : MonoBehaviour
     {
         isCLick = false;
     }
-    void DoneRoatate()
+    IEnumerator DoneRoatate()
     {
+        yield return new WaitForSeconds(0.02f);
         SetClick();
-        CheckPower.instance.hasPower = false;
-        CheckPower.instance.DFSs(this);
+        // kiem tra chinh minh
+        CheckHasConnectToPower();
+        HandleAfterRotate.instance.CheckListEnd();
+        GameManager.instance.OnLightToPower();
+    }
+    void CheckHasConnectToPower()
+    {
+        GameManager.instance.checkPower.listNext.Clear();
+        GameManager.instance.checkPower.hasPower = false;
+        //print("xoay");
+        //listConnect.ForEach(x => print(x));
+        GameManager.instance.checkPower.DFSs(this);
         GameManager.instance.ResetValidate();
-        isLight = CheckPower.instance.hasPower;
+        isLight = GameManager.instance.checkPower.hasPower;
+        //print("islight " + isLight);
         CheckLight(isLight);
-        HandleAfterRotate.instance.CheckListEnd(this);
-
-        foreach (var e in GameManager.instance.listAllHexa)
-        {
-            if (e.isPower)
-            {
-                GameManager.instance.DFS(e);
-                GameManager.instance.ResetValidate();
-             }
-        }
     }
     void DoneRotatePower()
     {
