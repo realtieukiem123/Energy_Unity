@@ -28,7 +28,7 @@ public class HandleAfterRotate : MonoBehaviour
                     
                 foreach (var l in GameManager.instance.checkPower.listNext)
                 {
-                    Debug.Log("Tat den " + l.name);
+                    //Debug.Log("Tat den " + l.name);
                     l.isLight = false;
                     l.CheckLight(l.isLight);
                 }

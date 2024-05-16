@@ -6,14 +6,18 @@ using UnityEngine;
 
 public class Hexa : MonoBehaviour
 {
-    float angle = 0;
+    public float angle = 0;
     float angle2 = 0;
     bool isCLick = false;
 
-    //public float speedRotate
+    public int angleCorrect;
+    public float speedRotate = 0.125f;
     public bool isValidate = false;
     public bool isPower = false;
     public bool isLight = false;
+    public bool isHexa = false;
+    public bool isWifi = false;
+    public bool isGOLight = false;
     public GameObject spriteOn;
     public List<GameObject> listConnect = new List<GameObject>();
 
@@ -24,18 +28,23 @@ public class Hexa : MonoBehaviour
 
     private void Start()
     {
+        if (isWifi) { GameManager.instance.listWifi.Add(this); }
+
+
         if (!isPower)
         {
             CheckLight(false);
-        
+
         }
         else
         {
+            SetAngle();
             GameManager.instance.listHexaPower.Add(this);
         }
 
         GameManager.instance.listAllHexa.Add(this);
 
+        //GameManager.instance.CheckCorrect();
 
     }
 
@@ -44,49 +53,78 @@ public class Hexa : MonoBehaviour
 
     public void OnClickHexa()
     {
-        if (isCLick) { return; }
+        if (isCLick || GameManager.instance.isStatus) { return; }
         isCLick = true;
         listConnect.Clear();
 
 
         //print(transform.rotation.eulerAngles.z);
 
-        if (isPower)
+        /*        if (isPower)
+                {
+                    SetAngle();
+                    angle2 = angle - 30;
+                    transform.DORotate(new Vector3(0, 0, angle2), speedRotate, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(DoneRotatePower);
+                    //vibaration
+                    GameManager.instance.Vibration();
+                }
+                else
+                {
+
+                }*/
+
+
+        SetAngle();
+        if (isHexa)
         {
-            angle = transform.rotation.eulerAngles.z;
-            angle2 = angle - 30;
-            transform.DORotate(new Vector3(0, 0, angle2), 0.1f, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(DoneRotatePower);
+            angle -= 60;
         }
         else
         {
-            //Quaternion rot = transform.rotation;
-            angle = transform.rotation.eulerAngles.z;
-            angle -= 60;
-            if (angle < 0)
-            {
-                angle += 360;
-            }
-
-            transform.DORotate(new Vector3(0, 0, angle), 0.2f, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(() => { StartCoroutine(DoneRoatate()); });
+            angle -= 90;
         }
 
 
+        if (angle < 0)
+        {
+            angle += 360;
+        }
+
+        transform.DORotate(new Vector3(0, 0, angle), speedRotate, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(() => { StartCoroutine(DoneRoatate()); });
+        //vibaration
+        GameManager.instance.Vibration();
+
 
     }
+    public void RotateSuggest()
+    {
+        transform.DORotate(new Vector3(0, 0, angleCorrect), speedRotate, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(() => { StartCoroutine(DoneRoatate()); });
+    }
+
     void SetClick()
     {
         isCLick = false;
     }
-    IEnumerator DoneRoatate()
+    public IEnumerator DoneRoatate()
     {
         yield return new WaitForSeconds(0.02f);
         SetClick();
+
         // kiem tra chinh minh
         CheckHasConnectToPower();
+
         HandleAfterRotate.instance.CheckListEnd();
         GameManager.instance.OnLightToPower();
+
+        SetAngle();
+        //CheckWifi
+        GameManager.instance.CheckWifi();
+
+
+        //CheckWin
+        GameManager.instance.CheckWin();
     }
-    void CheckHasConnectToPower()
+    public void CheckHasConnectToPower()
     {
         GameManager.instance.checkPower.listNext.Clear();
         GameManager.instance.checkPower.hasPower = false;
@@ -96,7 +134,8 @@ public class Hexa : MonoBehaviour
         GameManager.instance.ResetValidate();
         isLight = GameManager.instance.checkPower.hasPower;
         //print("islight " + isLight);
-        CheckLight(isLight);
+        CheckLight(isLight);        
+
     }
     void DoneRotatePower()
     {
@@ -139,4 +178,8 @@ public class Hexa : MonoBehaviour
         }
     }
 
+    public void SetAngle()
+    {
+        angle = (int)transform.rotation.eulerAngles.z;
+    }
 }

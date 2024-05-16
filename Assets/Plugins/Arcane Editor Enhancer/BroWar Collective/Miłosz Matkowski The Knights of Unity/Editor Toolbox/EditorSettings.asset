@@ -15,7 +15,7 @@ MonoBehaviour:
   useToolboxHierarchy: 1
   drawHorizontalLines: 1
   showSelectionsCount: 1
-  rowDataTypes: 030000000100000002000000
+  rowDataTypes: 00000000010000000200000003000000
   useToolboxFolders: 1
   largeIconScale: 0.8
   smallIconScale: 0.7

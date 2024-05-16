@@ -36,11 +36,13 @@ MonoBehaviour:
     - Toolbox.Editor
     - StompyRobot.SRDebugger
     - PsdPlugin
+    - ObjectPool
     - UltimateEditorEnhancer
     - StompyRobot.SRF.Editor
     - Toolbox.Editor.Tests
     - Assembly-CSharp
     - Toolbox.Tests
+    - ObjectPool.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
