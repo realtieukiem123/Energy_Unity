@@ -262,8 +262,12 @@ MonoBehaviour:
   isPower: 0
   isLight: 0
   isHexa: 0
+  isWifi: 0
+  isGOLight: 0
   spriteOn: {fileID: 8723430581150459218}
   listConnect: []
+  colorLight: 0
+  colorType: 1
 --- !u!222 &1155396939400069800
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -279,7 +283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3143753315883706943}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

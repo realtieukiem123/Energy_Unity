@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,12 +17,14 @@ public class GameManager : MonoBehaviour
     public GameObject WinBlur;
     public bool isStatus = false;
 
+    public Sprite[] arraySpriteLightRed;
+    public Sprite[] arraySpriteLightYellow;
     public List<Hexa> listAllHexa = new List<Hexa>();
     public List<Hexa> listHexaPower = new List<Hexa>();
     public List<Hexa> listNotCorrect = new List<Hexa>();
     public List<Hexa> listWifi = new List<Hexa>();
 
-
+    public bool isRed = false;
     private void Start()
     {
         Invoke("OnLightToPower", 0.1f);
@@ -33,6 +36,11 @@ public class GameManager : MonoBehaviour
         {
             if (e.isPower)
             {
+                //print(e.colorLight.ToString());
+
+                if (e.colorLight.ToString() == "Red") isRed = true;
+                else isRed = false;
+
                 dfsPower.DFSs(e);
                 ResetValidate();
             }
@@ -78,7 +86,7 @@ public class GameManager : MonoBehaviour
             f.isLight = false;
             f.CheckLight(f.isLight);
 
-            checkPower.DFSs(f);
+            // checkPower.DFSs(f);
         }
 
         listHexaPower.Clear();
@@ -95,14 +103,14 @@ public class GameManager : MonoBehaviour
                     f.isLight = true;
                     f.CheckLight(f.isLight);
 
-                    
+
 
                     //StartCoroutine(f.DoneRoatate());
                     /* f.CheckHasConnectToPower();
                      HandleAfterRotate.instance.CheckListEnd();
                      OnLightToPower();*/
                 }
-              
+
             }
             else if (e.isPower == true)
             {
@@ -199,10 +207,7 @@ public class GameManager : MonoBehaviour
                 listNotCorrect[numbers[i]].RotateSuggest();
             }
         }
-
-
-
-
-
     }
 }
+
+

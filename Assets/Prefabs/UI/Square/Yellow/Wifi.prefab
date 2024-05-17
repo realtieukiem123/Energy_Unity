@@ -334,6 +334,7 @@ MonoBehaviour:
   isGOLight: 0
   spriteOn: {fileID: 6792038201547363934}
   listConnect: []
+  colorLight: 0
 --- !u!222 &3673818704274522011
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hexa : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Hexa : MonoBehaviour
     public bool isGOLight = false;
     public GameObject spriteOn;
     public List<GameObject> listConnect = new List<GameObject>();
+    public ColorLight colorLight;
+    public ColorType colorType;
 
 
 
@@ -132,15 +135,16 @@ public class Hexa : MonoBehaviour
         //listConnect.ForEach(x => print(x));
         GameManager.instance.checkPower.DFSs(this);
         GameManager.instance.ResetValidate();
+
+
         isLight = GameManager.instance.checkPower.hasPower;
-        //print("islight " + isLight);
-        CheckLight(isLight);        
+        CheckLight(isLight);
 
     }
-    void DoneRotatePower()
-    {
-        transform.DORotate(new Vector3(0, 0, angle), 0.1f, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(SetClick);
-    }
+    /*    void DoneRotatePower()
+        {
+            transform.DORotate(new Vector3(0, 0, angle), 0.1f, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(SetClick);
+        }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -167,6 +171,7 @@ public class Hexa : MonoBehaviour
 
     public void CheckLight(bool isOn)
     {
+        CheckColor();
         if (isOn)
         {
             spriteOn.SetActive(true);
@@ -177,9 +182,75 @@ public class Hexa : MonoBehaviour
             spriteOn.SetActive(false);
         }
     }
+    void CheckColor()
+    {
+        if (isPower)
+        {
+            if (colorLight == ColorLight.Red)
+            {
+                spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[0];
+            }
+            else if (colorLight == ColorLight.Yellow)
+            {
+                spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[0];
+            }
+
+        }
+        else
+        {
+            if (colorType == ColorType.one)
+            {
+                if (colorLight == ColorLight.Red)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[1];
+                }
+                else
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[1];
+                }
+
+            }
+            else if (colorType == ColorType.two)
+            {
+                if (colorLight == ColorLight.Red)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[2];
+                }
+                else
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[2];
+                }
+            }
+            else if (colorType == ColorType.three)
+            {
+                if (colorLight == ColorLight.Red)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[3];
+                }
+                else
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[3];
+                }
+            }
+        }
+
+
+    }
 
     public void SetAngle()
     {
         angle = (int)transform.rotation.eulerAngles.z;
     }
+
+    public enum ColorLight
+    {
+        Red,
+        Yellow
+    }
+    public enum ColorType
+    {
+        one, two, three, four
+    }
 }
+
+
