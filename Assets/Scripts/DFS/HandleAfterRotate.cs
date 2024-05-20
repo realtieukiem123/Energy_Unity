@@ -13,14 +13,14 @@ public class HandleAfterRotate : MonoBehaviour
 
     public List<GameObject> listEnd = new List<GameObject>();
 
-    public void CheckListEnd()
+    public void CheckListEnd(List<Hexa> list)
     {
        
-        for (int i = 0; i < listEnd.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
             GameManager.instance.checkPower.hasPower = false;
             GameManager.instance.checkPower.listNext.Clear();
-            GameManager.instance.checkPower.DFSs(listEnd[i].GetComponent<Hexa>());
+            GameManager.instance.checkPower.DFSs(list[i]);
             GameManager.instance.ResetValidate();
 
             if (!GameManager.instance.checkPower.hasPower)

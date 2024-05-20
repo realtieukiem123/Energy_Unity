@@ -115,9 +115,12 @@ public class Hexa : MonoBehaviour
 
         // kiem tra chinh minh
         CheckHasConnectToPower();
-
-        HandleAfterRotate.instance.CheckListEnd();
-        GameManager.instance.OnLightToPower();
+        List<Hexa> tempListEnd = new List<Hexa>();
+        HandleAfterRotate.instance.listEnd.ForEach(e => { tempListEnd.Add(e.GetComponent<Hexa>()); });
+        HandleAfterRotate.instance.CheckListEnd(tempListEnd);
+        GameManager.instance.OffWifi();
+        GameManager.instance.isOnWifi = false;
+        GameManager.instance.OnLightToPower(GameManager.instance.listHexaPower);
 
         SetAngle();
         //CheckWifi

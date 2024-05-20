@@ -16,14 +16,14 @@ public class DFSPower : DFS
         if (GameManager.instance.isRed)
         {
             h.colorLight = Hexa.ColorLight.Red;
-            print("onred");
+            //print("onred");
         }
         else
         {
             h.colorLight = Hexa.ColorLight.Yellow;
-            print("onyellow");
+            //print("onyellow");
         }
-
+        if(h.isGOLight) { GameManager.instance.isOnWifi = true; }
         h.isLight = true;
         h.CheckLight(h.isLight);
     }

@@ -25,18 +25,24 @@ public class GameManager : MonoBehaviour
     public List<Hexa> listWifi = new List<Hexa>();
 
     public bool isRed = false;
+    public bool isOnWifi = false;
     private void Start()
     {
-        Invoke("OnLightToPower", 0.1f);
+        Invoke(nameof(StartCheck), 0.1f) ; 
         //CheckHexa();
     }
-    public void OnLightToPower()
+    void StartCheck() 
     {
-        foreach (var e in listHexaPower)
+        OnLightToPower(listHexaPower);
+    }
+    public void OnLightToPower(List<Hexa> list)
+    {
+        foreach (var e in list) 
         {
+            print("power   " + e.name);
             if (e.isPower)
             {
-                //print(e.colorLight.ToString());
+                print(e.colorLight.ToString());
 
                 if (e.colorLight.ToString() == "Red") isRed = true;
                 else isRed = false;
@@ -78,48 +84,19 @@ public class GameManager : MonoBehaviour
     }
     public void CheckWifi()
     {
-
-        //off
-        foreach (var f in listWifi)
+        
+        if (isOnWifi)
         {
-            f.isPower = false;
-            f.isLight = false;
-            f.CheckLight(f.isLight);
-
-            // checkPower.DFSs(f);
+            listWifi.ForEach(wf => { wf.isPower = true; });
+            OnLightToPower(listWifi);
         }
-
-        listHexaPower.Clear();
-        //on
-        foreach (var e in listAllHexa)
-        {
-            if (e.isGOLight == true && e.isLight == true)
-            {
-                foreach (var f in listWifi)
-                {
-                    print("add");
-                    //listHexaPower.Add(f);
-                    f.isPower = true;
-                    f.isLight = true;
-                    f.CheckLight(f.isLight);
-
-
-
-                    //StartCoroutine(f.DoneRoatate());
-                    /* f.CheckHasConnectToPower();
-                     HandleAfterRotate.instance.CheckListEnd();
-                     OnLightToPower();*/
-                }
-
-            }
-            else if (e.isPower == true)
-            {
-                listHexaPower.Add(e);
-
-                dfsPower.DFSs(e);
-                ResetValidate();
-            }
-        }
+    }
+    public void OffWifi()
+    {
+        listWifi.ForEach(wf => { 
+            wf.isPower = false; 
+        });
+        HandleAfterRotate.instance.CheckListEnd(listWifi);
     }
     public void CheckWin()
     {
