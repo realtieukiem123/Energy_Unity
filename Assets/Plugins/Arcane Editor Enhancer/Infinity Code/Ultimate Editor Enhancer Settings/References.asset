@@ -410,10 +410,24 @@ MonoBehaviour:
     alignWindowToBar: 1
     windowMode: 0
   _sceneHistory:
-  - name: Map2
-    path: Assets/Scenes/Map2.unity
   - name: Map1
     path: Assets/Scenes/Map1.unity
+  - name: demo
+    path: Assets/Prefabs/Assets/demo.unity
+  - name: Map4
+    path: Assets/Scenes/Map4.unity
+  - name: Map5
+    path: Assets/Scenes/Map5.unity
+  - name: Map3
+    path: Assets/Scenes/Map3.unity
+  - name: Map2
+    path: Assets/Scenes/Map2.unity
+  - name: Menu
+    path: Assets/Scenes/Menu.unity
+  - name: Map20
+    path: Assets/Scenes/Map20.unity
+  - name: Map10
+    path: Assets/Scenes/Map10.unity
   - name: New Scene
     path: Assets/Scenes/New Scene.unity
   - name: SampleScene

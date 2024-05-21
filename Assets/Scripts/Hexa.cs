@@ -95,7 +95,8 @@ public class Hexa : MonoBehaviour
 
         transform.DORotate(new Vector3(0, 0, angle), speedRotate, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(() => { StartCoroutine(DoneRoatate()); });
         //vibaration
-        GameManager.instance.Vibration();
+        //GameManager.instance.Vibration();
+        Vibrator.Vibrate(1);
 
 
     }
@@ -119,7 +120,9 @@ public class Hexa : MonoBehaviour
         HandleAfterRotate.instance.listEnd.ForEach(e => { tempListEnd.Add(e.GetComponent<Hexa>()); });
         HandleAfterRotate.instance.CheckListEnd(tempListEnd);
         GameManager.instance.OffWifi();
-        GameManager.instance.isOnWifi = false;
+
+        GameManager.instance.SetFailWifi();
+
         GameManager.instance.OnLightToPower(GameManager.instance.listHexaPower);
 
         SetAngle();
@@ -189,52 +192,236 @@ public class Hexa : MonoBehaviour
     {
         if (isPower)
         {
-            if (colorLight == ColorLight.Red)
+            if (isWifi)
             {
-                spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[0];
+                if (colorLight == ColorLight.Red)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[9];
+                }
+                else if (colorLight == ColorLight.Yellow)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[9];
+                }
+                else if (colorLight == ColorLight.Orange)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[9];
+                }
             }
-            else if (colorLight == ColorLight.Yellow)
+            else
             {
-                spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[0];
+                if (colorLight == ColorLight.Red)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[0];
+                }
+                else if (colorLight == ColorLight.Yellow)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[0];
+                }
+                else if (colorLight == ColorLight.Orange)
+                {
+                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[0];
+                }
             }
+
+
 
         }
         else
         {
-            if (colorType == ColorType.one)
+            switch (colorType)
             {
-                if (colorLight == ColorLight.Red)
-                {
-                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[1];
-                }
-                else
-                {
-                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[1];
-                }
+                case ColorType.one:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[1];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[1];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[1];
+                            break;
+                    }
+
+                    break;
+                case ColorType.two:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[2];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[2];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[2];
+                            break;
+                    }
+
+                    break;
+                case ColorType.three:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[3];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[3];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[3];
+                            break;
+                    }
+
+                    break;
+                case ColorType.four:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[4];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[4];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[4];
+                            break;
+                    }
+
+                    break;
+                case ColorType.five:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[5];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[5];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[5];
+                            break;
+                    }
+
+                    break;
+                case ColorType.six:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[6];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[6];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[6];
+                            break;
+                    }
+
+                    break;
+                case ColorType.seven:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[7];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[7];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[7];
+                            break;
+                    }
+
+                    break;
+                case ColorType.eight:
+
+                    switch (colorLight)
+                    {
+                        case ColorLight.Red:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[8];
+                            break;
+                        case ColorLight.Yellow:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[8];
+                            break;
+                        case ColorLight.Orange:
+                            spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[8];
+                            break;
+                    }
+
+                    break;
+                    /* case ColorType.nigh:
+
+                         switch (colorLight)
+                         {
+                             case ColorLight.Red:
+                                 spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[9];
+                                 break;
+                             case ColorLight.Yellow:
+                                 spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[9];
+                                 break;
+                             case ColorLight.Orange:
+                                 spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightOrange[9];
+                                 break;
+                         }
+
+                         break;*/
 
             }
-            else if (colorType == ColorType.two)
-            {
-                if (colorLight == ColorLight.Red)
-                {
-                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[2];
-                }
-                else
-                {
-                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[2];
-                }
-            }
-            else if (colorType == ColorType.three)
-            {
-                if (colorLight == ColorLight.Red)
-                {
-                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[3];
-                }
-                else
-                {
-                    spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[3];
-                }
-            }
+
+            /* if (colorType == ColorType.one)
+             {
+                 if (colorLight == ColorLight.Red)
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[1];
+                 }
+                 else
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[1];
+                 }
+
+             }
+             else if (colorType == ColorType.two)
+             {
+                 if (colorLight == ColorLight.Red)
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[2];
+                 }
+                 else
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[2];
+                 }
+             }
+             else if (colorType == ColorType.three)
+             {
+                 if (colorLight == ColorLight.Red)
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[3];
+                 }
+                 else
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[3];
+                 }
+             }
+             else if (colorType == ColorType.four)
+             {
+                 if (colorLight == ColorLight.Red)
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightRed[4];
+                 }
+                 else
+                 {
+                     spriteOn.GetComponent<Image>().sprite = GameManager.instance.arraySpriteLightYellow[4];
+                 }
+             }*/
         }
 
 
@@ -248,11 +435,13 @@ public class Hexa : MonoBehaviour
     public enum ColorLight
     {
         Red,
-        Yellow
+        Yellow,
+        Orange
+
     }
     public enum ColorType
     {
-        one, two, three, four
+        one, two, three, four, five, six, seven, eight, nigh, ten
     }
 }
 

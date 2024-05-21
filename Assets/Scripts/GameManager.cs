@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -16,45 +17,52 @@ public class GameManager : MonoBehaviour
     public CheckPower checkPower;
     public GameObject WinBlur;
     public bool isStatus = false;
-
+    //Color
     public Sprite[] arraySpriteLightRed;
+    public Sprite[] arraySpriteLightOrange;
     public Sprite[] arraySpriteLightYellow;
+
     public List<Hexa> listAllHexa = new List<Hexa>();
     public List<Hexa> listHexaPower = new List<Hexa>();
     public List<Hexa> listNotCorrect = new List<Hexa>();
     public List<Hexa> listWifi = new List<Hexa>();
 
-    public bool isRed = false;
-    public bool isOnWifi = false;
+    public Hexa.ColorLight powerColor = Hexa.ColorLight.Red;
+    //public bool isYellow = false;
+
+
+    public bool isOnWifiRed = false;
+    public bool isOnWifiYellow = false;
+    public bool isOnWifiOrange = false;
     private void Start()
     {
-        Invoke(nameof(StartCheck), 0.1f) ; 
-        //CheckHexa();
+        LoadFirst();
     }
-    void StartCheck() 
+    void LoadFirst()
+    {
+        //fps
+        Application.targetFrameRate = 300;
+        //check
+        Invoke(nameof(StartCheck), 0.1f);
+    }
+    void StartCheck()
     {
         OnLightToPower(listHexaPower);
     }
     public void OnLightToPower(List<Hexa> list)
     {
-        foreach (var e in list) 
+        foreach (var e in list)
         {
             print("power   " + e.name);
             if (e.isPower)
             {
-                print(e.colorLight.ToString());
-
-                if (e.colorLight.ToString() == "Red") isRed = true;
-                else isRed = false;
+                powerColor = e.colorLight;
 
                 dfsPower.DFSs(e);
                 ResetValidate();
             }
         }
     }
-
-
-
     public void ResetValidate()
     {
         foreach (var e in listAllHexa)
@@ -78,25 +86,56 @@ public class GameManager : MonoBehaviour
         }
         return result;
     }
-    public void Vibration()
-    {
-        Handheld.Vibrate();
-    }
     public void CheckWifi()
     {
-        
-        if (isOnWifi)
+
+        if (isOnWifiRed)
         {
-            listWifi.ForEach(wf => { wf.isPower = true; });
+            listWifi.ForEach(wf =>
+            {
+                if (wf.colorLight == Hexa.ColorLight.Red)
+                {
+                    wf.isPower = true;
+                }
+            });
+            OnLightToPower(listWifi);
+        }
+        else if (isOnWifiYellow)
+        {
+            listWifi.ForEach(wf =>
+            {
+                if (wf.colorLight == Hexa.ColorLight.Yellow)
+                {
+                    wf.isPower = true;
+                }
+            });
+            OnLightToPower(listWifi);
+        }
+        else
+        {
+            listWifi.ForEach(wf =>
+            {
+                if (wf.colorLight == Hexa.ColorLight.Orange)
+                {
+                    wf.isPower = true;
+                }
+            });
             OnLightToPower(listWifi);
         }
     }
     public void OffWifi()
     {
-        listWifi.ForEach(wf => { 
-            wf.isPower = false; 
+        listWifi.ForEach(wf =>
+        {
+            wf.isPower = false;
         });
         HandleAfterRotate.instance.CheckListEnd(listWifi);
+    }
+    public void SetFailWifi()
+    {
+        isOnWifiRed = false;
+        isOnWifiOrange = false;
+        isOnWifiYellow = false;
     }
     public void CheckWin()
     {
@@ -122,6 +161,17 @@ public class GameManager : MonoBehaviour
     void NextScene()
     {
         print("Win");
+
+        var indexSceme = SceneManager.GetActiveScene().buildIndex;
+        if (indexSceme >= 5)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
     }
 
     //--------------------------------------------BUTTON---------------------------------------------------

@@ -11,8 +11,6 @@ public class CheckPower : DFS
     {
 
         h.isValidate = true;
-        var isRed = false;
-        var isYellow = false;
 
         listNext.Add(h);
 
