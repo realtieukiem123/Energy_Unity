@@ -103,6 +103,7 @@ public class Hexa : MonoBehaviour
     public void RotateSuggest()
     {
         transform.DORotate(new Vector3(0, 0, angleCorrect), speedRotate, RotateMode.Fast).SetEase(Ease.Linear).OnComplete(() => { StartCoroutine(DoneRoatate()); });
+        //SetAngle();
     }
 
     void SetClick()

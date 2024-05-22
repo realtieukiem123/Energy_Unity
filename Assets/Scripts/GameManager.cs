@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public DFSPower dfsPower;
     public CheckPower checkPower;
     public GameObject WinBlur;
+    public GameObject ReplayBlur;
     public bool isStatus = false;
     //Color
     public Sprite[] arraySpriteLightRed;
@@ -42,6 +43,11 @@ public class GameManager : MonoBehaviour
     {
         //fps
         Application.targetFrameRate = 300;
+        //Blur
+        ReplayBlur.SetActive(true);
+        ReplayBlur.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        ReplayBlur.gameObject.GetComponent<Image>().DOFade(0f, 1f).SetEase(Ease.Linear);
+        ReplayBlur.transform.DOScale(new Vector3(60f, 60f, 60f), 1f).SetEase(Ease.Linear).OnComplete(() => { ReplayBlur.SetActive(false); });
         //check
         Invoke(nameof(StartCheck), 0.1f);
     }
@@ -88,7 +94,6 @@ public class GameManager : MonoBehaviour
     }
     public void CheckWifi()
     {
-
         if (isOnWifiRed)
         {
             listWifi.ForEach(wf =>
@@ -100,7 +105,7 @@ public class GameManager : MonoBehaviour
             });
             OnLightToPower(listWifi);
         }
-        else if (isOnWifiYellow)
+        if (isOnWifiYellow)
         {
             listWifi.ForEach(wf =>
             {
@@ -111,7 +116,7 @@ public class GameManager : MonoBehaviour
             });
             OnLightToPower(listWifi);
         }
-        else
+        if (isOnWifiOrange)
         {
             listWifi.ForEach(wf =>
             {
@@ -127,7 +132,11 @@ public class GameManager : MonoBehaviour
     {
         listWifi.ForEach(wf =>
         {
+            
             wf.isPower = false;
+
+
+
         });
         HandleAfterRotate.instance.CheckListEnd(listWifi);
     }
@@ -182,8 +191,9 @@ public class GameManager : MonoBehaviour
 
         foreach (var e in listAllHexa)
         {
-            if (e.angle != e.angleCorrect && !e.isPower)
+            if ((int)e.transform.rotation.eulerAngles.z != (int)e.angleCorrect)
             {
+                print("z" + (int)e.transform.rotation.eulerAngles.z + " angle " + (int)e.angleCorrect);
                 listNotCorrect.Add(e);
             }
         }

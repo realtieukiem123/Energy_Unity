@@ -9,27 +9,32 @@ public class DFSPower : DFS
 
         base.DoSomething(h);
         if (h.isValidate) return;
-
         h.isValidate = true;
 
-        h.colorLight = GameManager.instance.powerColor;
-
-        if (h.isWifi)
+        if (!h.isPower && !h.isLight)
         {
-            if (h.colorLight == Hexa.ColorLight.Red)
-            {
-                GameManager.instance.isOnWifiRed = true;
-            }
-            else if (h.colorLight == Hexa.ColorLight.Yellow)
-            {
-                GameManager.instance.isOnWifiYellow = true;
-            }
-            else
-            {
-                GameManager.instance.isOnWifiOrange = true;
-            }
+            h.colorLight = GameManager.instance.powerColor;
 
+            if (h.isWifi)
+            {
+
+                if (h.colorLight == Hexa.ColorLight.Red)
+                {
+                    GameManager.instance.isOnWifiRed = true;
+                }
+                else if (h.colorLight == Hexa.ColorLight.Yellow)
+                {
+                    GameManager.instance.isOnWifiYellow = true;
+                }
+                else if (h.colorLight == Hexa.ColorLight.Orange)
+                {
+                    GameManager.instance.isOnWifiOrange = true;
+                }
+
+            }
         }
+
+
 
         h.isLight = true;
         h.CheckLight(h.isLight);
