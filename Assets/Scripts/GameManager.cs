@@ -12,11 +12,11 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
     }
-
+    public UI uiScripts;
     public DFSPower dfsPower;
     public CheckPower checkPower;
     public GameObject WinBlur;
-    public GameObject ReplayBlur;
+    //public GameObject ReplayBlur;
     public bool isStatus = false;
     //Color
     public Sprite[] arraySpriteLightRed;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public List<Hexa> listWifi = new List<Hexa>();
 
     public Hexa.ColorLight powerColor = Hexa.ColorLight.Red;
+
     //public bool isYellow = false;
 
 
@@ -43,11 +44,6 @@ public class GameManager : MonoBehaviour
     {
         //fps
         Application.targetFrameRate = 300;
-        //Blur
-        ReplayBlur.SetActive(true);
-        ReplayBlur.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-        ReplayBlur.gameObject.GetComponent<Image>().DOFade(0f, 1f).SetEase(Ease.Linear);
-        ReplayBlur.transform.DOScale(new Vector3(60f, 60f, 60f), 1f).SetEase(Ease.Linear).OnComplete(() => { ReplayBlur.SetActive(false); });
         //check
         Invoke(nameof(StartCheck), 0.1f);
     }
@@ -59,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var e in list)
         {
-            print("power   " + e.name);
+            //print("power   " + e.name);
             if (e.isPower)
             {
                 powerColor = e.colorLight;
@@ -164,7 +160,8 @@ public class GameManager : MonoBehaviour
             WinBlur.SetActive(true);
 
             //tween
-            WinBlur.transform.DOScale(new Vector3(40, 40, 1), 1f).SetEase(Ease.InCirc).OnComplete(() => { NextScene(); });
+            //WinBlur.gameObject.GetComponent<Image>().DOFade(50f, 1f).SetEase(Ease.Linear);
+            WinBlur.transform.DOScale(new Vector3(130, 130, 130), 1f).SetEase(Ease.InCirc).OnComplete(() => { NextScene(); });
         }
     }
     void NextScene()
@@ -172,7 +169,7 @@ public class GameManager : MonoBehaviour
         print("Win");
 
         var indexSceme = SceneManager.GetActiveScene().buildIndex;
-        if (indexSceme >= 5)
+        if (indexSceme >= 8)
         {
             SceneManager.LoadScene(0);
         }
@@ -186,14 +183,24 @@ public class GameManager : MonoBehaviour
     //--------------------------------------------BUTTON---------------------------------------------------
     public void ButtonSuggest()
     {
+        int numSug = PlayerPrefs.GetInt("numSug");
+        if (numSug > 0)
+        {
+            PlayerPrefs.SetInt("numSug", PlayerPrefs.GetInt("numSug") - 1);
+            uiScripts.CheckSuggest();
+        }
+        else
+        {
+            //return;
+        }
+
 
         listNotCorrect.Clear();
-
         foreach (var e in listAllHexa)
         {
             if ((int)e.transform.rotation.eulerAngles.z != (int)e.angleCorrect)
             {
-                print("z" + (int)e.transform.rotation.eulerAngles.z + " angle " + (int)e.angleCorrect);
+                print("z" + (int)e.transform.rotation.eulerAngles.z /*+ " angle " + (int)e.angleCorrect*/);
                 listNotCorrect.Add(e);
             }
         }

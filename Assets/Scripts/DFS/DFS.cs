@@ -8,11 +8,11 @@ public class DFS : MonoBehaviour
     {
         var tempctrl = hex.GetComponent<Hexa>();
         DoSomething(tempctrl);
-        print(hex.name);
-        print("list connect ");
+        //print(hex.name);
+        //print("list connect ");
         foreach (var e in tempctrl.listConnect)
         {
-            print("c" + e.name);
+            //print("c" + e.name);
             var ctr = e.GetComponent<Hexa>();
             if (!ctr.isValidate)
             {

@@ -268,7 +268,7 @@ MonoBehaviour:
   spriteOn: {fileID: 8723430581150459218}
   listConnect: []
   colorLight: 1
-  colorType: 5
+  colorType: 6
 --- !u!222 &1155396939400069800
 CanvasRenderer:
   m_ObjectHideFlags: 0
